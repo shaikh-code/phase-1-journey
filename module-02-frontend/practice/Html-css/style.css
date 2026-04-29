@@ -1,0 +1,68 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Layout spacing */
+.section {
+  padding: 2rem 1rem;
+}
+
+/* Navbar */
+.nav {
+    /* border: 2px solid black; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.links a {
+  margin-left: 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+/* Cards layout */
+.cards {
+  /* border:2px solid black; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card {
+    /* border: 2px solid black; */
+  flex: 1 1 250px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.card button {
+  margin-top: auto;
+  padding: 0.5rem;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
