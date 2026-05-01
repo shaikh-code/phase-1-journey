@@ -9,3 +9,27 @@ Learned: Semantic HTML structure and proper use of layout tags (header, main, se
 Practiced: Building a basic webpage layout using HTML and applying Flexbox for navbar and card layout
 Problem: Initial confusion between semantic tags and overuse of <div>
 Fix: Replaced generic structure with proper semantic elements and followed clean layout hierarchy
+
+## Day 3-4
+
+Topic: JavaScript — Destructuring, Spread & Rest Operator
+
+What I Learned:
+- Object and array destructuring
+- Renaming and default values while destructuring
+- Nested object destructuring
+- Spread operator for copying and merging
+- Rest operator for collecting remaining elements
+- Spread as function arguments
+
+What I Practiced:
+- Isolated drills on each concept
+- Mini project: Student Result Processor
+
+Mini Project:
+- Pure JS, no frameworks
+- Processed student data using all concepts learned
+- Covered nested destructuring, spread overrides, array merging, summary object building
+
+
+
