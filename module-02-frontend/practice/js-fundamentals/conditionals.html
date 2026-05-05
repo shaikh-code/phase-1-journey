@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const hour = 14;
+
+if (hour < 12) {
+  console.log("Good morning");
+} else if (hour < 17) {
+  console.log("Good afternoon");   // this runs — 14 < 17
+} else if (hour < 21) {
+  console.log("Good evening");
+} else {
+  console.log("Good night");
+}
+
+// Condition can be any expression
+const user = { name: "Moiz", role: "admin" };
+
+if (user && user.role === "admin") {
+  console.log("Full access granted");
+} else if (user && user.role === "editor") {
+  console.log("Edit access only");
+} else {
+  console.log("Access denied");
+}
+
+// Checking if a value exists — common pattern
+const data = null;
+
+if (data) {
+  console.log("Data:", data);
+} else {
+  console.log("No data available");  // runs — null is falsy
+}
+
+// Switch conditional
+
+const day = "Sunday";
+
+switch (day) {
+  case "Monday":
+  case "Tuesday":
+  case "Wednesday":
+  case "Thursday":
+  case "Friday":
+    console.log("Weekday — study time");  // runs for any weekday
+    break;
+  case "Saturday":
+  case "Sunday":
+    console.log("Weekend");
+    break;
+  default:
+    console.log("Invalid day");
+}
+
+// Fall-through bug — what happens without break
+const n = 1;
+switch (n) {
+  case 1:
+    console.log("one");
+    break;
+    // no break — falls through into case 2
+  case 2:
+    console.log("two");  // also runs when n = 1
+    break;
+  case 3:
+    console.log("three");
+}
+// Output: "one" then "two" — even though n is 1
+
+// Truthy and falsy values
+
+// The 6 falsy values
+console.log(Boolean(false));      // false
+console.log(Boolean(0));          // false
+console.log(Boolean(""));         // false
+console.log(Boolean(null));       // false
+console.log(Boolean(undefined));  // false
+console.log(Boolean(NaN));        // false
+
+// Tricky truthy values
+console.log(Boolean([]));         // true — empty array is truthy
+console.log(Boolean({}));         // true — empty object is truthy
+console.log(Boolean("0"));        // true — non-empty string
+console.log(Boolean("false"));    // true — non-empty string
+console.log(Boolean(-1));         // true — any non-zero number
+
+// Real usage — checking existence
+const username = "";
+if (!username) {
+  console.log("Username required");  // runs — empty string is falsy
+}
+
+const items = [];
+if (!items.length) {
+  console.log("Cart is empty");  // runs — 0 is falsy
+}
+
+// Safe nested access
+const response = null;
+if (response && response.data && response.data.user) {
+  console.log(response.data.user.name);
+} else {
+  console.log("No user data");  // runs
+}
+
+const isLoggedIn = true;
+const count = 0;
+
+if (isLoggedIn) {
+  console.log("items in cart" && count);
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+ <body>
+    <script>
+
+// Loops
+// for loop
+
+for(let i=0; i<5; i++){
+    console.log(i)
+}
+
+const skills = ["HTML", "CSS", "JavaScript", "React"];
+for (let i = skills.length -1; i>=0 ; i--) {
+  console.log(i, "→", skills[i]);
+}
+
+// Nested loop
+for (let i = 1; i <= 3; i++) {
+  for (let j = 1; j <= 3; j++) {
+    console.log(i, "x", j, "=", i * j);
+  }
+}
+
+// while loop
+let count =5 ;
+while(count >0)
+{
+    console.log("count:" , count);
+    count--;  
+}        
+
+let attempts = 3;
+while(attempts >=0){
+    console.log(`attempts remaining: ${attempts}`);
+    attempts--;
+}
+console.log("done")
+
+let x = 10;
+while (x < 5) {
+  console.log("this never prints");
+}
+console.log("skipped the loop");
+
+// do while loop
+let num = 10;
+do {
+    console.log("ran with num=", num )
+    num++;
+}
+while(num<5)
+
+// Compared to while — body never runs
+let val = 10;
+while (val < 5) {
+  console.log("this never prints");
+}
+
+// for ...of
+const fruits = ["mango", "apple","kiwi"]
+for(const fruit of fruits){
+    console.log(fruit)
+}
+
+// with index using .entries()
+for (const [i, fruit] of fruits.entries()){
+    console.log(i,"-->", fruit);
+}
+
+// Works on strings too
+for (const char of "Moiz") {
+  console.log(char);
+}
+
+// for ...in
+const profile = {name: "moiz", age:20, city:"Lahore", role: "student"}
+for (const key in profile){
+    console.log(key, ":", profile[key])
+}
+
+// Why not on arrays — string indices
+const arr = ["a", "b", "c"];
+for (const index in arr) {
+  console.log(typeof index, index);
+}
+
+// Use for...of instead
+for (const valItem of arr) {
+  console.log(valItem);
+}
+
+const numbers = [1, 3, 5, 8, 11, 13];
+for (const numItem of numbers) {
+  if (numItem % 2 === 0) {
+    console.log("First even:", numItem);
+    break;
+  }
+}
+
+// continue — skip odds, process evens only
+for (let i = 0; i < 10; i++) {
+  if (i % 2 !== 0) continue;
+  console.log(i);
+}
+
+for (let i = 0; i < 5; i++) {
+  if (i === 3) break;
+  if (i % 2 === 0) continue;
+  console.log(i);
+}
+
+let loopIndex = 0;
+while (loopIndex < 5) {
+  console.log(loopIndex);
+  loopIndex++;
+}
+
+const users = ["Moiz", "", "Ahmed", null, "Sara"];
+
+for (const userItem of users) {
+  if (!userItem) continue;
+  console.log(userItem);
+}
+
+for (let i = 0; i < 3; i++) {
+  for (let j = 0; j < 3; j++) {
+    if (j === 1) break;
+    console.log(i, j);
+  }
+}
+
+const numbersList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+for (const numVal of numbersList){
+    if(numVal %2 == 0)
+    console.log(numVal)
+}
+
+// Your final profile object
+const profileData = {
+  name: "Moiz",
+  age: 20,
+  city: "Lahore",
+  goal: "AI Engineer"
+};
+
+for (const key in profileData){
+    console.log(key,"-->", profileData[key])
+}
+
+// while table (fixed variable reuse)
+const tableNum = 7;
+let tableIndex = 1;
+while(tableIndex <= 10){
+    console.log(`${tableNum} x ${tableIndex} = ${tableNum * tableIndex}`)
+    tableIndex++;
+}
+
+// users filtering (extended list)
+const usersList = ["Moiz", "", "Ahmed", null, "Sara", undefined, "Ali"];
+
+for (const userEntry of usersList){
+    if(userEntry == null || userEntry == "")
+    continue;
+    console.log(userEntry)
+}
+
+// pattern
+for (let i = 1; i <= 5; i++) {
+  let row = "";
+  for (let j = 1; j <= i; j++) {
+    row += j + " ";
+  }
+  console.log(row);
+}
+
+    </script>
+ </body>
+ </html>

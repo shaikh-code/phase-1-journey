@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log(10 + 3);    // 13
+console.log(10 - 3);    // 7
+console.log(10 * 3);    // 30
+console.log(10 / 3);    // 3.3333...
+console.log(10 % 3);    // 1 — remainder after dividing
+console.log(2 ** 10);   // 1024
+
+// Remainder practical use
+for (let i = 1; i <= 6; i++) {
+  console.log(i, i % 2 === 0 ? "even" : "odd");
+}
+
+// Increment behaviour
+let a = 5;
+console.log(a++);  // 5 — returns old value, then increments
+console.log(a);    // 6
+
+let b = 5;
+console.log(++b);  // 6 — increments first, then returns
+
+// === strict — checks value AND type
+console.log(5 === 5);        // true
+console.log(5 === "5");      // false — different types
+console.log(null === undefined); // false
+
+// == loose — coerces first, then compares
+console.log(5 == "5");       // true — "5" converted to 5
+console.log(0 == false);     // true — false converted to 0
+console.log(null == undefined); // true — special JS rule
+console.log("" == false);    // true — both become 0
+
+// > < >= <=
+console.log(10 > 5);         // true
+console.log(10 >= 10);       // true
+console.log("b" > "a");      // true — char code 98 > 97
+console.log("banana" > "apple"); // true — compares char by char
+
+
+// && returns first falsy or last value
+console.log(true && "Moiz");     // "Moiz" — all truthy, returns last
+console.log(false && "Moiz");    // false — first falsy
+console.log(1 && 2 && 3);        // 3 — all truthy, returns last
+console.log(1 && null && 3);     // null — first falsy, stops there
+
+// || returns first truthy or last value
+console.log(null || "default");  // "default" — first truthy
+console.log("Moiz" || "default"); // "Moiz" — first truthy
+console.log(0 || "" || "last");  // "last" — all falsy, returns last
+
+// ?? — only null/undefined triggers the fallback
+console.log(null ?? "fallback");      // "fallback"
+console.log(undefined ?? "fallback"); // "fallback"
+console.log(0 ?? "fallback");         // 0 — 0 is NOT null/undefined
+console.log("" ?? "fallback");        // "" — empty string is NOT null/undefined
+
+// The difference between || and ?? matters
+const count = 0;
+console.log(count || "no data");  // "no data" — WRONG, 0 is valid
+console.log(count ?? "no data");  // 0 — CORRECT
+
+// ! and !!
+console.log(!true);     // false
+console.log(!0);        // true
+console.log(!!0);       // false — converts to boolean
+console.log(!!"Moiz");  // true — converts to boolean
+    </script>
+</body>
+</html>

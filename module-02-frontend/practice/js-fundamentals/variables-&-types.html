@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var is hoisted — dangerous
+console.log(x); // undefined (not an error!)
+var x = 10;
+
+// let/const throw ReferenceError if used before declaration
+
+// const object properties CAN change
+const user = { name: "Moiz" };
+user.name = "Abdul"; // fine
+console.log(user.name);
+
+// const can't be reassigned
+// user = {}; // TypeError
+
+
+// primitive types
+// 7 primitives: string, number, boolean, null, undefined, symbol, bigint.
+
+console.log(typeof "hello");    // string
+console.log(typeof 42);         // number
+console.log(typeof true);       // boolean
+console.log(typeof undefined);  // undefined
+console.log(typeof null);       // object ← JS bug
+console.log(typeof {});         // object
+console.log(typeof []);         // object ← arrays too!
+console.log(typeof function(){}); // function
+console.log(typeof NaN);        // number ← trap
+console.log(NaN === NaN);       // false ← always
+console.log(Number.isNaN(NaN)); // true ← correct way
+
+
+// Type coercion
+// JS automatically converts types during operations.
+//  + with a string triggers concatenation.
+//  -, *, / always convert to numbers first.
+
+
+console.log("5" + 5);   // "55" — + with string = concat
+console.log("5" - 5);   // 0 — -, *, / force number
+console.log("5" * "2"); // 10
+console.log(true + 1);  // 2 — true = 1
+console.log(false + 1); // 1 — false = 0
+console.log(null + 1);  // 1 — null = 0
+console.log(undefined + 1); // NaN
+
+// == does coercion — avoid it
+console.log(0 == false);   // true ← dangerous
+console.log("" == false);  // true ← dangerous
+console.log(0 === false);  // false ← correct
+
+    </script>
+</body>
+</html>
