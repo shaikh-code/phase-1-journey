@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function greet(name) {          // name = parameter
+  return `Hello, ${name}!`;
+}
+console.log(greet("Moiz"));     // "Hello, Moiz!" "Moiz" = argument
+console.log(greet("Hafsa"));    // "Hello, Ahmed!"
+console.log(greet("Sara"));     // "Hello, Sara!"
+
+// No return = undefined
+function doSomething() {
+  let x = 5 + 5;
+// no return
+}
+console.log(doSomething());     // undefined
+
+// Declaration call before definition works
+console.log(multiply(3, 4));    // 12  no error
+function multiply(a, b) {
+  return a * b;
+}
+
+// Expression  call before definition fails
+// console.log(divide(10, 2));  // ReferenceError
+const divide = function(a, b) {
+  return a / b;
+};
+// console.log(divide(10, 2));     // 5
+
+
+// regular function calls
+const add = function (a,b){
+    return a+b;
+}
+
+// Arrow function
+const arrow = (a,b) =>{
+    return a+b;
+}
+
+// Arrow function  -- implicit return
+const add1 = (a,b)=>{
+    a+b;
+}
+
+// All three are equivalent
+const square= function(n){
+    return n*n;
+};
+const square1 = (n)=>{
+    return n*n;
+};
+const square2= n =>{    //cleanest 
+    return n*n;
+};
+console.log(square(4))
+
+// no params
+const sayHi = ()=> "hi";
+console.log(sayHi());
+
+
+const divide1 = (a, b) => {
+  if (b === 0){
+     return "Can't divide by zero";
+  } 
+  return a / b;
+};
+console.log(divide1(10, 2));     // 5
+console.log(divide1(10, 0));     
+
+// Returning object  wrap in ()
+const makeUser = (name,age )=> ({name,age});
+console.log(makeUser("Moiz", 21))
+
+// Default parameters
+
+function greet (name = "stranger", greeting = "hello"){
+    return `${greeting}, ${name}!`;
+}
+console.log(greet("Moiz", "Hey"))
+console.log(greet("Moiz", "Hey"))
+console.log(greet())
+
+// Default does NOT trigger for null or 0
+function test(x = 10) {
+  return x;
+}
+console.log(test(undefined)); // 10 default triggers
+console.log(test(null));      // null default does NOT trigger
+console.log(test(0));         // 0 default does NOT trigger
+
+// Scope
+const globalVar = "i'm global"
+function outer(){
+    const outerVar =  "I'm in outer";
+    function inner(){
+        const innerVar= "I;m in inner ";
+        console.log(globalVar)
+        console.log(outerVar)
+        console.log(innerVar)
+    }
+    inner();
+}
+outer();
+
+// var leaks out of blocks
+if (true) {
+  var leaked = "I leaked";
+  let blocked = "I stayed";
+}
+console.log(leaked);    // "I leaked"  var ignores block scope
+// console.log(blocked); // ReferenceErr
+
+function outer() {
+  let count = 0;        // normally would die when outer() finishes
+
+  return function() {   // but this inner function uses count
+    count++;
+    return count;
+  };
+}
+
+
+// Closures
+const counter = outer();  // outer() finished  but count is NOT dead
+console.log(counter());   // 1  count is still alive
+console.log(counter());   // 2  still alive
+console.log(counter());   // 3 still alive
+
+
+function outer() {
+  let count = 0;        // normally would die when outer() finishes
+
+  return function() {   // but this inner function uses count
+    count++;
+    return count;
+  };
+}
+
+const counter1 = outer();  // outer() finished  but count is NOT dead
+console.log(counter1());   // 1  count is still alive
+console.log(counter1());   // 2  still alive
+console.log(counter1());   // 3  still alive
+
+console.log(sayHello("Moiz"));
+
+function sayHello(name) {
+  return `Hello, ${name}!`;
+}
+
+const sayBye = function(name) {
+  return `Bye, ${name}!`;
+};
+
+console.log(sayBye("Moiz"));
+
+const multiply_ = (a, b = 2) => a * b;
+
+console.log(multiply(5));
+console.log(multiply(5, 3));
+console.log(multiply(5, undefined));
+console.log(multiply(5, null));
+
+function outer() {
+  let x = 10;
+
+  return function() {
+    x += 5;
+    return x;
+  };
+}
+
+const fn1 = outer();
+const fn2 = outer();
+
+console.log(fn1());
+console.log(fn1());
+console.log(fn2());
+console.log(fn1());
+console.log("hello")
+
+const greet_ = (name = "stranger") => {
+  const message = `Hello, ${name}!`;
+  return message;
+};
+
+console.log(greet());
+console.log(greet("Moiz"));
+// console.log(message); error
+function makeMultiplier(factor) {
+  return n => n * factor;
+}
+
+const double = makeMultiplier(2);
+const triple = makeMultiplier(3);
+
+console.log(double(5));
+console.log(triple(5));
+console.log(double(triple(2)));
+
+// Task 1
+function calculateArea(width,height=width){
+    const area = width * height;
+    return area;
+
+}
+console.log(calculateArea(5,3))
+console.log(calculateArea(4))
+ 
+// Task 2
+
+const isEven = (number)=>{
+    if(number % 2 === 0 ){
+        return true
+    }
+    else 
+    return false
+
+}
+const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const evens =nums.filter(isEven)
+console.log(evens)
+
+// Task 3
+function makeGreeter(language){
+    return function(name){
+        return `${language}, ${name}!`
+    }
+    
+}
+const greetEnglish = makeGreeter("hello");
+const greetUrdu = makeGreeter("salam")
+console.log(greetEnglish("Moiz"))
+console.log(greetUrdu("moiz"))
+
+// Task 4
+function calculator(a, b, operation = "") {
+
+    if (operation === "add") {
+        return a + b;
+
+    } else if (operation === "subtract") {
+        return a - b;
+
+    } else if (operation === "multiply") {
+        return a * b;
+
+    } else if (operation === "divide") {
+
+        if (b === 0) {
+            return "Can't divide by zero";
+        }
+
+        return a / b;
+
+    } else {
+        return "Invalid operation";
+    }
+}
+
+console.log(calculator(10, 5, "add"));
+console.log(calculator(10, 5, "multiply"));
+console.log(calculator(10, 0, "divide"));
+console.log(calculator(10, 5, "joules"));
+
+
+
+// Task 5 
+function makeWallet(balance){
+   
+    return {
+        deposit:function(amount){
+            balance += amount;
+            console.log(balance)
+        },
+        withdraw: function(amount){
+            if(amount>balance){
+                 console.log("Insufficient balance")
+            }else{
+                
+                balance= balance-amount
+                console.log(balance)
+            }
+        },
+        getBalance:function(){
+            return balance;
+        }
+    }
+}
+const wallet = makeWallet(100)
+wallet.deposit(50);    // logs 150
+wallet.withdraw(30);   // logs 120
+wallet.withdraw(200);  // logs "Insufficient balance"
+console.log(wallet.getBalance()); // 120 getBalance returns, so wrap in console.log
+
+
+
+
+
+    </script>
+</body>
+</html>

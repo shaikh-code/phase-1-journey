@@ -80,4 +80,31 @@ Mini Project:
 - Each outer loop iteration creates a fresh inner loop
 
 
+## Day 8 | Functions
+
+---
+
+## What I Covered
+- What a function is and why it exists
+- Function declarations vs function expressions
+- Arrow functions  syntax, shorthand rules, implicit return
+- Default parameters
+- Scope  global, function, block
+- Closures  how and why inner functions remember outer variables
+
+---
+
+## Key Concepts Understood
+- Parameters are placeholders in the definition. Arguments are actual values passed when calling
+- Function declarations are hoisted  can call before defining. Expressions and arrows are not
+- Arrow functions have no own `this`  they inherit from surrounding scope
+- Single expression arrow functions don't need `{}` or `return`
+- Returning an object from arrow function requires wrapping in `()`  `id => ({ id, name })`
+- Default parameters only trigger on `undefined`  not `null`, `0`, or `""`
+- `var` ignores block scope and leaks out of `{}`  never use it
+- Closures keep outer variables alive in memory as long as inner function exists
+- Each closure is independent  calling the same factory function twice creates two separate closures with their own variables
+
+
+
 
