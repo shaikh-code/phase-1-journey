@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // arrays
+        // Arrays
+const skills = ["HTML", "CSS", "JavaScript", "React"];
+
+console.log(skills[0]);                     // "HTML"
+console.log(skills[2]);                     // "JavaScript"
+console.log(skills[skills.length - 1]);    // "React" — last element
+console.log(skills.length);                // 4
+
+
+// Arrays can hold mixed types
+const mixed = ["Moiz", 20, true, null, { city: "Lahore" }];
+
+console.log(mixed[4]);                     // { city: "Lahore" }
+
+
+// push & pop
+const arr = ["b", "c", "d"];
+
+arr.push("e");
+console.log(arr);
+
+const removed = arr.pop();
+
+console.log(removed);
+console.log(arr);
+
+
+// unshift & shift
+arr.unshift("a");
+console.log(arr);
+
+const first = arr.shift();
+
+console.log(first);
+console.log(arr);
+
+
+// slice & splice
+const arr2 = [10, 20, 30, 40, 50];
+
+
+// slice — non-destructive
+const part = arr2.slice(1, 3);   // index 1 and 2, end not included
+
+console.log(part);               // [20, 30]
+console.log(arr2);               // [10, 20, 30, 40, 50] unchanged
+
+
+// slice to copy entire array
+const copy1 = arr2.slice();
+
+console.log(copy1);              // [10, 20, 30, 40, 50]
+
+
+// slice with negative index
+console.log(arr2.slice(-2));     // [40, 50] last 2
+
+
+// splice — mutates
+const removed2 = arr2.splice(1, 2); // at index 1, remove 2 elements
+
+console.log(removed2);              // [20, 30]
+console.log(arr2);                  // [10, 40, 50] mutated
+
+
+// splice to insert
+arr2.splice(1, 0, 99, 98);          // at index 1, delete 0, insert 99 and 98
+
+console.log(arr2);                  // [10, 99, 98, 40, 50]
+
+
+// splice to replace
+arr2.splice(1, 1, 77);              // at index 1, delete 1, insert 77
+
+console.log(arr2);                  // [10, 77, 98, 40, 50]
+
+
+// map, filter, reduce
+const products = [
+    { name: "Laptop", price: 1200, inStock: false },
+    { name: "Phone", price: 800, inStock: true },
+    { name: "Tablet", price: 450, inStock: false },
+    { name: "Watch", price: 200, inStock: true }
+];
+
+
+// map
+const names = products.map(p => p.name);
+
+console.log(names);
+
+
+const discounted = products.map(
+    p => ({ ...p, price: p.price * 0.9 })
+);
+
+console.log(discounted[0].price);
+
+
+// filter
+const available = products.filter(p => p.inStock);
+
+console.log(available.map(p => p.name));
+
+
+// reduce
+const total = products.reduce(
+    (sum, p) => sum + p.price,
+    0
+);
+
+console.log(total);
+
+
+const inStockTotal = products
+    .filter(p => p.inStock)
+    .reduce((sum, p) => sum + p.price, 0);
+
+console.log(inStockTotal);
+
+
+// find, findIndex, includes, some, every
+const nums_ = [3, 7, 1, 9, 4, 6, 2];
+
+console.log(nums_.find(n => n > 5));
+console.log(nums_.find(n => n > 100));
+
+console.log(nums_.findIndex(n => n > 5));
+console.log(nums_.findIndex(n => n > 100));
+
+console.log(nums_.includes(9));
+console.log(nums_.includes(99));
+
+console.log(nums_.some(n => n > 0));
+console.log(nums_.every(n => n > 5));
+
+
+// flat
+const nested = [1, [2, 3], [4, [5, 6]]];
+
+console.log(nested.flat());           // [1, 2, 3, 4, [5, 6]]
+console.log(nested.flat(2));          // [1, 2, 3, 4, 5, 6]
+console.log(nested.flat(Infinity));   // [1, 2, 3, 4, 5, 6]
+
+
+// spread — copy array
+const original = [1, 2, 3];
+
+const copy2 = [...original];
+
+copy2.push(4);
+
+console.log(original);    // [1, 2, 3]
+console.log(copy2);       // [1, 2, 3, 4]
+
+
+// spread — merge arrays
+const a = [1, 2, 3];
+const b = [4, 5, 6];
+
+const merged = [...a, ...b];
+
+console.log(merged);      // [1, 2, 3, 4, 5, 6]
+
+
+// spread — pass array as arguments
+const nums = [5, 3, 9, 1];
+
+console.log(Math.max(...nums));   // 9
+
+
+// extra slice example
+const arr3 = [10, 20, 30, 40, 50];
+
+const result = arr3.slice(1, 3);
+
+console.log(result);
+console.log(arr3);
+
+console.log("hello");
+
+
+// extra splice example
+const arr4 = [10, 20, 30, 40, 50];
+
+const removed3 = arr4.splice(1, 2);
+
+console.log(removed3);
+console.log(arr4);
+
+// Task1
+
+const numsNew = [5, 12, 3, 8, 19, 7, 14, 2, 11, 6];
+const chaining = numsNew
+.filter(n => n > 6)
+.map( n => n*2);
+console.log(chaining)
+// task 2
+const namesNew = ["Moiz", "Ahmed", "Sara", "Ali", "Zara"];
+const removedNew = namesNew.splice(2,2)
+console.log(removedNew)
+console.log(namesNew)
+// Task3
+const orders = [
+  { id: 1, item: "Laptop", price: 1200, delivered: true },
+  { id: 2, item: "Phone", price: 800, delivered: false },
+  { id: 3, item: "Tablet", price: 450, delivered: true },
+  { id: 4, item: "Watch", price: 200, delivered: false },
+  { id: 5, item: "Headphones", price: 150, delivered: true }
+];
+
+const totalPrice = orders.filter(o => o.delivered).reduce((total,o) => total+o.price,0)
+console.log(totalPrice)
+const orderNames = orders.filter(o => !o.delivered).map(o => o.item)
+console.log(orderNames)
+console.log(orders.every(o => o.price>100))
+
+
+// Task 4
+
+const students = [
+  { name: "Moiz", score: 87 },
+  { name: "Ahmed", score: 45 },
+  { name: "Sara", score: 92 },
+  { name: "Ali", score: 38 },
+  { name: "Zara", score: 76 }
+];
+
+console.log(students.find(s => s.score >=60))
+console.log(students.findIndex(s=>s.score<60))
+console.log(students.some(s=>s.score > 90))
+const passedStudents = students.filter(s=> s.score>=60).map(s =>s.name)
+console.log(passedStudents)
+
+// Task5
+const cart = [
+  { name: "Laptop", price: 1200, qty: 1 },
+  { name: "Mouse", price: 25, qty: 2 },
+  { name: "Keyboard", price: 75, qty: 1 },
+  { name: "Monitor", price: 400, qty: 2 }
+];
+const totalBill = cart.reduce((sum,p)=> sum + p.price * p.qty,0)
+console.log(totalBill)
+
+const discountedCart = cart.map(p => p.price>100?{...p, price:p.price *0.9}:p)
+console.log(discountedCart)
+
+const summary = cart.map(p=> `${p.name} x ${p.qty} = $${p.price * p.qty}`)
+console.log(summary)
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       
+// 1. JSON PARSE
+
+
+function parseJASON(str) {
+  try {
+    return JSON.parse(str);
+  } catch (error) {
+    console.log("JSON Parse Error:", error.message);
+    return null;
+  }
+}
+
+console.log(parseJASON(`{"name":"Moiz"}`));
+console.log(parseJASON("bad json"));
+
+
+
+// 2. GET PROPERTY SAFE ACCESS
+
+
+function getProperty(obj, key) {
+  try {
+    if (obj === null || obj === undefined) {
+      throw new TypeError("Object cannot be null or undefined");
+    }
+    return obj[key];
+  } catch (error) {
+    console.error(error.message);
+    return null;
+  }
+}
+
+console.log(getProperty({ name: "Moiz" }, "name"));
+console.log(getProperty(null, "name"));
+
+
+
+// 3. DIVISION INPUT HANDLING
+
+
+try {
+  const dividend = Number(prompt("Enter dividend"));
+  const divisor = Number(prompt("Enter divisor"));
+
+  if (divisor === 0) {
+    throw new Error("You can't divide by zero");
+  }
+
+  if (isNaN(dividend) || isNaN(divisor)) {
+    throw new Error("Values must be numbers");
+  }
+
+  const result = dividend / divisor;
+  console.log(result);
+
+} catch (error) {
+  console.error(error.message);
+}
+
+console.log("You have reached the end!");
+
+
+
+// 4. DIVIDE FUNCTION (STRICT)
+
+
+function divide(a, b) {
+  if (typeof a !== "number" || typeof b !== "number") {
+    throw new TypeError("Both arguments must be numbers");
+  }
+  if (b === 0) {
+    throw new RangeError("Cannot divide by zero");
+  }
+  return a / b;
+}
+
+try {
+  console.log(divide(10, 2));
+  console.log(divide(10, 0));
+} catch (e) {
+  console.log(`${e.name}: ${e.message}`);
+}
+
+
+
+// 5. VALIDATION ERROR SYSTEM
+
+
+class ValidationError extends Error {
+  constructor(field, message) {
+    super(message);
+    this.name = "ValidationError";
+    this.field = field;
+  }
+}
+
+class NetworkError extends Error {
+  constructor(statusCode, message) {
+    super(message);
+    this.name = "NetworkError";
+    this.statusCode = statusCode;
+  }
+}
+
+function validateUser(user) {
+  if (!user.name)
+    throw new ValidationError("name", "Name is required");
+
+  if (!user.email)
+    throw new ValidationError("email", "Email is required");
+
+  if (user.age < 0)
+    throw new ValidationError("age", "Age must be positive");
+
+  return true;
+}
+
+try {
+  validateUser({ name: "", email: "test", age: 20 });
+} catch (e) {
+  if (e instanceof ValidationError) {
+    console.log(`Field '${e.field}' failed: ${e.message}`);
+  } else if (e instanceof NetworkError) {
+    console.log(`Network error ${e.statusCode}: ${e.message}`);
+  } else {
+    console.log("Unknown error:", e.message);
+  }
+}
+
+
+
+// 6. AGE VALIDATION
+
+
+function validateAge(age) {
+  if (typeof age !== "number" || Number.isNaN(age)) {
+    throw new ValidationError("age", "Age must be a number");
+  }
+  if (age < 0) {
+    throw new ValidationError("age", "Age cannot be negative");
+  }
+  if (age > 120) {
+    throw new ValidationError("age", "Age cannot be greater than 120");
+  }
+  return "Valid";
+}
+
+try {
+  console.log(validateAge(150));
+} catch (e) {
+  if (e instanceof ValidationError) {
+    console.log(`Field '${e.field}' failed: ${e.message}`);
+  } else {
+    console.log("Unknown Error:", e.message);
+  }
+}
+
+
+
+// 7. READ CONFIG (TASK 4)
+
+
+class ConfigValidationError extends Error {
+  constructor(field, message) {
+    super(message);
+    this.name = "ValidationError";
+    this.field = field;
+  }
+}
+
+function readConfig(config) {
+  if (typeof config !== "object" || config === null || Array.isArray(config)) {
+    throw new TypeError("Config must be an object");
+  }
+
+  if (config.timeout < 100 || config.timeout > 5000) {
+    throw new RangeError("Timeout must be between 100 and 5000");
+  }
+
+  if (!config.url) {
+    throw new ConfigValidationError("url", "URL is required");
+  }
+
+  return "Config valid";
+}
+
+function testConfig(config) {
+  try {
+    console.log(readConfig(config));
+  } catch (e) {
+    if (e instanceof ConfigValidationError) {
+      console.log(`ValidationError -> ${e.field}: ${e.message}`);
+    } else if (e instanceof RangeError) {
+      console.log("RangeError ->", e.message);
+    } else if (e instanceof TypeError) {
+      console.log("TypeError ->", e.message);
+    } else {
+      console.log("Unknown Error ->", e.message);
+    }
+  }
+}
+
+// TESTS
+testConfig({ url: "x", timeout: 1000 });
+testConfig("wrong");
+testConfig({ url: "x", timeout: 50 });
+testConfig({ timeout: 1000 });
+
+
+
+// 8. FAKE API (TASK 5)
+
+
+class APIError extends Error {
+  constructor(statusCode, message) {
+    super(message);
+    this.name = "NetworkError";
+    this.statusCode = statusCode;
+  }
+}
+
+function fakeAPI(shouldFail) {
+  if (shouldFail) throw new APIError(500, "Internal Server Error");
+
+  return {
+    data: {
+      user: {
+        name: "Moiz",
+        role: "dev"
+      }
+    }
+  };
+}
+
+function fetchUserData(shouldFail) {
+  try {
+    const response = fakeAPI(shouldFail);
+
+    return {
+      name: response?.data?.user?.name,
+      role: response?.data?.user?.role
+    };
+
+  } catch (e) {
+
+    if (e instanceof APIError) {
+      console.log(`NetworkError -> ${e.statusCode}: ${e.message}`);
+      return null;
+    }
+
+    console.log("Unknown error:", e.message);
+    throw e;
+
+  } finally {
+    console.log("Request finished");
+  }
+}
+
+// TEST
+console.log(fetchUserData(false));
+console.log(fetchUserData(true));
+        
+
+
+
+    </script>
+</body>
+</html>

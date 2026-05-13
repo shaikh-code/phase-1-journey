@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+      background-color: grey;
+    }
+    .box {
+      background: white;
+      border: 2px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .highlight {
+      background-color: yellow;
+      border: 2px solid gold;
+    }
+    .hidden {
+      display: none;
+    }
+
+    .highlight 
+    { 
+        background-color: yellow; 
+        border: 2px solid gold; 
+    }
+  </style>
+</head>
+<body>
+    
+<!-- HTML (just the body) -->
+<div class="panel">
+  <h1 id="welcomeHeading">Welcome to DOM School</h1>
+  <p class="infoText">First paragraph.</p>
+  <p class="infoText">Second paragraph.</p>
+</div>
+
+
+<div class="panel">
+  <h1 id="pageHeadline">Old Headline</h1>
+  <button id="btnText">Change Text</button>
+  <button id="btnHtml">Change with HTML</button>
+</div>
+
+
+
+<div class="panel" id="classBox">
+  <p id="classStatus">The box has no highlight.</p>
+  <button id="addHighlight">Add highlight</button>
+  <button id="removeHighlight">Remove highlight</button>
+  <button id="toggleHighlight">Toggle highlight</button>
+</div>
+
+
+
+<div class="panel" id="styleDemo">
+  <p id="styleMessage">I will change color and size.</p>
+  <button id="applyStyles">Apply</button>
+  <button id="resetStyles">Reset</button>
+</div>
+
+
+
+
+
+<div class="panel">
+  <img id="picture" src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d" alt="Placeholder" height="100px" width="100px">
+  <br>
+  <button id="changePicture">Change Image</button>
+  <button id="readAlt">Read Alt Text</button>
+  <div id="profileCard" data-user-id="88" data-role="editor" style="margin-top:10px;">
+    Profile Card
+  </div>
+</div>
+
+
+
+<div class="panel_">
+  <input type="text" id="nameField" placeholder="Type your name">
+  <p id="greeting">Hello, stranger</p>
+</div>
+
+
+
+<div class="panel_1">
+  <form id="loginForm">
+    <input type="text" id="loginEmail" placeholder="Email">
+    <button type="submit">Log In</button>
+  </form>
+  <p id="loginMessage"></p>
+</div>
+
+
+
+<div class="panel_2">
+  <ul id="groceryList">
+    <li>Milk</li>
+  </ul>
+  <button id="addGrocery">Add Item</button>
+  <button id="removeGrocery">Remove Last</button>
+</div>
+
+
+
+
+<div class="panel_3">
+  <ul id="navList">
+    <li id="navHome">Home</li>
+    <li id="navAbout">About</li>
+    <li id="navContact">Contact</li>
+  </ul>
+  <button id="showParent">Show Parent of About</button>
+  <button id="showChildren">Show All Children</button>
+  <button id="showNextSibling">Show Next Sibling of About</button>
+</div>
+
+<input id="userInput" placeholder="Type something">
+<button id="badBtn">Unsafe Render</button>
+
+<div id="output1"></div>
+
+
+<script>
+  // Selecting elements
+  const welcomeHeading = document.getElementById('welcomeHeading');
+  const firstInfo = document.querySelector('.infoText');
+  const allInfos = document.querySelectorAll('.infoText');
+
+  console.log(welcomeHeading);   // <h1 id="welcomeHeading">...
+  console.log(firstInfo);        // first .infoText paragraph
+  console.log(allInfos.length);  // 2
+
+
+
+//   Changing content
+
+const pageHeadline = document.getElementById("pageHeadline");
+const btnText = document.getElementById('btnText');
+const btnHtml = document.getElementById("btnHtml");
+
+ btnText.addEventListener('click', function() {
+    pageHeadline.textContent = 'New plain text headline';
+  });
+
+  btnHtml.addEventListener('click', ()=>{
+     
+    pageHeadline.innerHTML = "New  <em>italic</em>"
+
+  })
+
+  
+
+
+
+//   Working with classes
+
+
+  const classBox = document.getElementById('classBox');
+  const classStatus = document.getElementById('classStatus');
+  const addHighlight = document.getElementById('addHighlight');
+  const removeHighlight = document.getElementById('removeHighlight');
+  const toggleHighlight = document.getElementById('toggleHighlight');
+  
+  function updateStatus(){
+    if(classBox.classList.contains("highlight")){
+        classStatus.textContent = "highlight on"
+    }
+    else{
+        classStatus.textContent = "highlight off"
+    }
+  }
+   addHighlight.addEventListener('click', () => {
+    classBox.classList.add('highlight');
+    updateStatus();
+  });
+
+  removeHighlight.addEventListener('click', () => {
+    classBox.classList.remove('highlight');
+    updateStatus();
+  });
+
+  toggleHighlight.addEventListener('click', () => {
+    classBox.classList.toggle('highlight');
+    updateStatus();
+  });
+
+  updateStatus();
+
+
+//   changing inline styles
+
+  const styleDemo = document.getElementById('styleDemo');
+  const styleMessage = document.getElementById('styleMessage');
+  const applyStyles = document.getElementById('applyStyles');
+  const resetStyles = document.getElementById('resetStyles');
+
+  applyStyles.addEventListener("click", ()=>{
+    styleDemo.style.backgroundColor = 'black';
+    styleDemo.style.color = 'white';
+
+    styleDemo.style.fontSize = '30px';
+    styleDemo.style.padding = '10px';
+    styleMessage.textContent = 'Styles applied.';
+  })
+  
+   resetStyles.addEventListener('click', () => {
+    styleDemo.style.backgroundColor = '';
+    styleDemo.style.fontSize = '';
+    styleDemo.style.padding = '';
+    styleMessage.textContent = 'Styles reset.';
+  });
+
+
+
+
+  const picture = document.getElementById('picture');
+  const changePicture = document.getElementById('changePicture');
+  const readAlt = document.getElementById('readAlt');
+  const profileCard = document.getElementById('profileCard');
+
+  changePicture.addEventListener("click",()=>{
+    picture.setAttribute('src',"https://images.unsplash.com/photo-1494790108377-be9c29b29330")
+    picture.setAttribute("alt"," a bigger different picture")
+    picture.setAttribute("height","150px")
+    picture.setAttribute("width","150px")
+    
+
+  })
+
+  readAlt.addEventListener("click",()=>{
+    alert("alt text"+ picture.getAttribute('alt'))
+  })
+console.log(profileCard.dataset.userId);   // "88"
+  profileCard.dataset.role = 'admin';   
+console.log(profileCard.dataset.role);   // admin
+
+
+
+
+
+const nameField = document.getElementById('nameField')
+
+const greeting =  document.getElementById('greeting')
+
+nameField.addEventListener('input',()=>{
+    const name = nameField.value.trim();
+    greeting.textContent = name ? `heloo ${name}`: "hello stranger"
+});
+
+
+
+
+
+ const loginForm = document.getElementById('loginForm');
+  const loginEmail = document.getElementById('loginEmail');
+  const loginMessage = document.getElementById('loginMessage');
+
+  loginForm.addEventListener("submit",(event)=>{
+    event.preventDefault();
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(emailPattern.test(loginEmail.value)){
+        loginMessage.textContent = "Valdi Email:" + loginEmail.value
+    }else{
+        loginMessage.textContent = "Invalid Email."
+    }
+  });
+  
+
+  const groceryList = document.getElementById('groceryList');
+  const addGrocery = document.getElementById('addGrocery');
+  const removeGrocery = document.getElementById('removeGrocery');
+
+  addGrocery.addEventListener("click",()=>{
+    const newItem = document.createElement('li')
+    newItem.innerText = "Item" + (groceryList.children.length +1)
+    groceryList.appendChild(newItem)
+  });
+
+  removeGrocery.addEventListener("click",()=>{
+
+    if(groceryList.lastElementChild){
+        groceryList.removeChild(groceryList.lastElementChild)
+    }
+
+  })
+;
+
+
+
+ const navAbout = document.getElementById('navAbout');
+  const navList = document.getElementById('navList');
+  const showParent = document.getElementById('showParent');
+  const showChildren = document.getElementById('showChildren');
+  const showNextSibling = document.getElementById('showNextSibling');
+
+  showParent.addEventListener('click', () => {
+    console.log('Parent:', navAbout.parentElement); // <ul>
+  });
+
+  showChildren.addEventListener('click', () => {
+    console.log('Children:', navList.children); // HTMLCollection of <li>
+  });
+
+  showNextSibling.addEventListener('click', () => {
+    console.log('Next sibling:', navAbout.nextElementSibling); // <li id="navContact">
+  });
+
+
+
+</script>
+       
+   
+
+    
+</body>
+</html>

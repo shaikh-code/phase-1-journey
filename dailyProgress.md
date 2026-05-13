@@ -106,5 +106,70 @@ Mini Project:
 - Each closure is independent  calling the same factory function twice creates two separate closures with their own variables
 
 
+## Days 8–13 (Combined) | Arrays → Objects → Error Handling → DOM
+
+---
+
+## What I Covered
+
+### Topics
+- Arrays
+- Objects
+- Error Handling
+- DOM Basics
+
+---
+
+## Key Concepts Learned
+
+### Arrays
+- `splice` mutates original. `slice` does not  critical difference
+- `map`  transform every element, returns new array same length
+- `filter`  keep elements matching condition, returns smaller array
+- `reduce`  collapse array into single value, always provide starting value
+- `find` returns element, `findIndex` returns position, `-1` if not found
+- `some`  at least one matches. `every`  all must match
+- Spread `[...arr]` = shallow copy. Same as `slice()`
+- Chain methods  `filter` then `map` then `reduce` in one expression
+- Never mutate original array in React  always return new arrays
+
+### Objects
+- Property shorthand  `{ name, age }` instead of `{ name: name, age: age }`
+- Computed property names  `{ [variable]: value }` for dynamic keys
+- `Object.keys()` / `Object.values()` / `Object.entries()`  convert object to array to use array methods
+- `Object.fromEntries()`  convert array of pairs back to object
+- Optional chaining `?.`  safe access on possibly null/undefined values
+- Combine with `??` for clean fallback — `obj?.prop ?? "default"`
+- Spread is shallow  nested objects still shared by reference
+- `structuredClone()`  correct modern way to deep clone
+
+### Error Handling
+- `try`  code that might fail
+- `catch(e)`  runs only on error. `e.name`, `e.message`, `e.stack`
+- `finally`  always runs  use for cleanup, logging, hiding spinners
+- Always throw `new Error("message")`  never throw plain strings
+- Custom error classes  extend `Error`, set `this.name`, add custom properties
+- `instanceof`  check error type to handle different failures differently
+- Wrap every API call and JSON parse in try/catch  non-negotiable in production
+
+### DOM
+- DOM is a browser API  JS talks to it to manipulate the page
+- `querySelector` / `querySelectorAll`  most flexible, accepts any CSS selector
+- `getElementById`  fastest, use when you have an ID
+- `querySelectorAll` returns NodeList  convert with `Array.from()` to use array methods
+- `textContent` for plain text  safer. `innerHTML` for HTML  never use with user input (XSS)
+- `classList.add/remove/toggle/contains`  preferred over inline styles
+- `element.style.property` uses camelCase  `backgroundColor` not `background-color`
+- `createElement` + `appendChild`  create and add elements dynamically
+- `element.remove()`  modern way to remove an element
+- `addEventListener`  always use this, never inline `onclick=""`
+- `event.preventDefault()`  stops default browser behaviour. Critical on form submit  prevents page reload so JS handles submission
+- `event.target`  element that triggered the event
+- Event bubbling  events travel from child up to parent automatically
+- Event delegation  one listener on parent handles all child events. Works because of bubbling. Essential for dynamically added elements
+
+---
+
+
 
 

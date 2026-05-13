@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+ // Basic Object
+const dev = {
+    name: "Moiz",
+    age: 20,
+    city: "Lahore",
+    skills: ["HTML", "CSS", "JS"],
+    isEmployed: false
+};
+
+console.log(dev.name);
+console.log(dev["city"]);
+console.log(dev.skills[0]);
+
+// Property Shorthand
+const userName = "Moiz";
+const userAge = 20;
+const userCity = "Lahore";
+
+const userShorthand = {
+    userName,
+    userAge,
+    userCity
+};
+
+console.log(userShorthand);
+
+// Computed Property Names
+const field = "role";
+const value = "developer";
+
+const computedObj = {
+    [field]: value,
+    [`${field}Level`]: "junior"
+};
+
+console.log(computedObj);
+
+// Add, Update, Delete Properties
+const userCRUD = {
+    name: "Moiz",
+    age: 20
+};
+
+userCRUD.city = "Lahore";
+userCRUD.role = "developer";
+
+userCRUD.age = 21;
+delete userCRUD.role;
+
+console.log(userCRUD);
+
+// Check Property Existence
+console.log("name" in userCRUD);
+console.log("role" in userCRUD);
+console.log(userCRUD.missing);
+
+// Object Destructuring
+const userDestructure = {
+    name: "Moiz",
+    age: 20,
+    city: "Lahore",
+    role: "dev"
+};
+
+const { name: fullName } = userDestructure;
+const { country = "Pakistan" } = userDestructure;
+const { city: userCity2, ...restUser } = userDestructure;
+
+console.log(fullName);
+console.log(country);
+console.log(restUser);
+
+// Spread and Merge Objects
+const extra = {
+    github: "moiz-dev"
+};
+
+const fullProfile = {
+    ...userDestructure,
+    ...extra
+};
+
+console.log(fullProfile);
+
+// Shallow Copy Behavior
+const originalShallow = {
+    name: "Moiz",
+    address: {
+        city: "Lahore"
+    }
+};
+
+const shallowCopy = { ...originalShallow };
+
+shallowCopy.address.city = "Karachi";
+
+console.log(originalShallow.address.city);
+
+// Deep Copy
+const originalDeep = {
+    name: "Moiz",
+    address: {
+        city: "Lahore",
+        zip: "54000"
+    }
+};
+
+const deepCopy = structuredClone(originalDeep);
+
+deepCopy.address.city = "Karachi";
+
+console.log(originalDeep.address.city);
+
+// Optional Chaining
+const userOptional = {
+    name: "Moiz",
+    address: {
+        city: "Lahore"
+    }
+};
+
+console.log(userOptional.address?.city);
+console.log(userOptional.contact?.phone);
+console.log(userOptional.contact?.phone?.number);
+console.log(userOptional.contact?.phone ?? "No phone");
+
+// Working with Arrays of Objects
+const employees = [
+    { name: "Moiz", dept: "Engineering", salary: 120000 },
+    { name: "Ahmed", dept: "Marketing", salary: 80000 },
+    { name: "Sara", dept: "Engineering", salary: 135000 },
+    { name: "Ali", dept: "Marketing", salary: 75000 },
+    { name: "Zara", dept: "Engineering", salary: 110000 }
+];
+
+const groupedByDept = employees.reduce((acc, emp) => {
+    if (!acc[emp.dept]) acc[emp.dept] = [];
+    acc[emp.dept].push(emp);
+    return acc;
+}, {});
+
+console.log(groupedByDept);
+
+// Average Salary Per Department
+const averageSalary = Object.entries(groupedByDept).reduce(
+    (acc, [dept, workers]) => {
+        const total = workers.reduce((sum, emp) => sum + emp.salary, 0);
+        acc[dept] = total / workers.length;
+        return acc;
+    },
+    {}
+);
+
+console.log(averageSalary);
+
+// Highest Paid Employee Per Department
+const highestPaid = Object.entries(groupedByDept).reduce(
+    (acc, [dept, workers]) => {
+        acc[dept] = workers.reduce((top, curr) =>
+            curr.salary > top.salary ? curr : top
+        );
+        return acc;
+    },
+    {}
+);
+
+console.log(highestPaid);
+
+// Student Score Processing
+const students = {
+    Moiz: 87,
+    Ahmed: 45,
+    Sara: 92,
+    Ali: 38,
+    Zara: 76
+};
+
+const failedStudents = Object.entries(students)
+    .filter(([_, score]) => score < 60)
+    .map(([name]) => name);
+
+console.log(failedStudents);
+
+const bonusMarks = Object.fromEntries(
+    Object.entries(students).map(([name, score]) => [name, score + 5])
+);
+
+console.log(bonusMarks);
+
+const highestStudent = Object.entries(students).reduce(
+    (best, curr) => (curr[1] > best[1] ? curr : best)
+);
+
+console.log(highestStudent);
+
+// Safe API Response Handling
+const response = {
+    status: "success",
+    data: {
+        user: {
+            name: "",
+            contact: null
+        }
+    }
+};
+
+console.log(response?.data?.user?.name ?? "Unknown");
+console.log(response?.data?.user?.contact ?? "No phone");
+console.log(response?.data?.order?.[0]?.item ?? "No orders");
+
+
+
+
+    </script>
+</body>
+</html>
