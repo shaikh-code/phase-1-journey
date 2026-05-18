@@ -171,5 +171,27 @@ Mini Project:
 ---
 
 
+## Days 14-15 
+
+- two days off just revised
+
+## days 15 to 18 
+
+## Todo App — Complete
+
+### What I Built
+- Full todo app in vanilla HTML, CSS, JavaScript
+- Add, delete, toggle complete, edit, cancel edit
+
+### What I Learned
+- Event delegation  single listener on parent element
+- Immutable state updates using filter, map, and spread operator
+- Scope management  event listeners at top level outside functions
+- Edit flow without data loss  storing editingId instead of deleting task
+
+### Weak Points Identified
+- Forget to assign filter/map results back to array
+- Typos in variable names and createElement break code silently
+- Needed heavy guidance on logic  need to improve independent thinking
 
 
