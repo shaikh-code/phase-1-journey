@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>TODO APP</title>
+    <link rel="stylesheet" href="app.css">
 </head>
 <body class="theme-dark">
 
@@ -18,7 +19,9 @@
         <button type="submit">Add</button>
         <button style="display: none;" id="cancelBtn" >Cancel</button>
       </form>
-
+       <button id="filterAll" class="filterBtn">All</button>
+       <button id="activeFilter" class="filterBtn">Active</button>
+       <button id="completedFilter" class="filterBtn">Completed</button>
       <ul id="taskList" class="task-list"></ul>
     </section>
   </main>
