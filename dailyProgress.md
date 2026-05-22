@@ -175,23 +175,51 @@ Mini Project:
 
 - two days off just revised
 
-## days 15 to 18 
+---
 
-## Todo App — Complete
+# Days 15–18 | Todo App | Vanilla HTML/CSS/JS
 
-### What I Built
+## What I Built
 - Full todo app in vanilla HTML, CSS, JavaScript
 - Add, delete, toggle complete, edit, cancel edit
+## What I Learned
 
-### What I Learned
-- Event delegation  single listener on parent element
-- Immutable state updates using filter, map, and spread operator
-- Scope management  event listeners at top level outside functions
-- Edit flow without data loss  storing editingId instead of deleting task
+- Event delegation  one listener on parent handles all child clicks
+- Immutable state updates  `filter()` and `map()` return new arrays, never mutate original
+- Spread operator  copying objects cleanly when updating one field
+- Edit flow without data loss  storing `editingId` instead of deleting and recreating task
+- Scope management  listeners at top level outside render to avoid duplicate stacking
 
-### Weak Points Identified
-- Forget to assign filter/map results back to array
-- Typos in variable names and createElement break code silently
-- Needed heavy guidance on logic  need to improve independent thinking
+## Weak Points and Status
 
+- Forgot to assign `filter()` / `map()` result back to array  fixed by end of project
+- Typos in variable names breaking code silently  improved, still a recurring risk
 
+---
+
+# Days 19(Off)
+
+# Days 20–22 | Expense Tracker | Vanilla HTML/CSS/JS
+
+## What I Built
+Add, delete, category filter, running total, localStorage persistence. All 7 chunks completed independently with hints only, zero working code given.
+
+## What I Learned
+
+- Single source of truth  `expenses` array drives all rendering, DOM never patched directly
+- Clear then re-render  `innerHTML = ""` before every render call
+- `dataset`  storing and reading expense id on DOM elements via `dataset.id`
+- Type coercion trap  `dataset` always gives a string, `Date.now()` gives a number, must use `Number(id)` before comparing or delete silently fails
+- `reduce()`  summing array values into a single total
+- Filter without mutation  passing filtered subset to `renderExpenses(data)` without touching `expenses`
+- `localStorage`  `stringify()` on save, `parse()` on load, null check before assigning
+- `e.preventDefault()`  stops page refresh on form submit
+
+## Weak Points and Status
+
+- `if/else` validation logic written inverted  understood and fixed
+- `expenses.id` written instead of `obj.id` inside `forEach()` fixed, concept clear
+- `.filter()` called on DOM element instead of array  fixed
+- `renderExpenses()` placed after `return` inside callback  fixed
+- `JSON.stringify()` result discarded instead of passed into `setItem()`  fixed
+- Stopped mid-function multiple times without completing logic  recurring, needs discipline

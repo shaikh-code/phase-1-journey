@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #101827, #1f2937, #334155);
+  color: #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 16px;
+}
+
+.app {
+  width: 100%;
+  max-width: 620px;
+}
+
+.expense-card {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 32px;
+  color: #f8fafc;
+}
+
+#expenseForm {
+  display: grid;
+  gap: 14px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #111827;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
+button {
+  padding: 13px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.summary {
+  margin: 22px 0;
+  padding: 16px;
+  background: #0f766e;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.summary h2 {
+  font-size: 22px;
+  color: #ecfeff;
+}
+
+.filters {
+  margin-bottom: 18px;
+}
+
+#expenseList {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+#expenseList li {
+  background: #f8fafc;
+  color: #111827;
+  padding: 14px;
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.delete {
+  background: #dc2626;
+  padding: 9px 12px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.delete:hover {
+  background: #b91c1c;
+}
+
+.footer {
+  margin-top: 18px;
+  text-align: center;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer strong {
+  color: #ffffff;
+}
+
+@media (max-width: 480px) {
+  .expense-card {
+    padding: 22px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  #expenseList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .delete {
+    width: 100%;
+  }
+}
