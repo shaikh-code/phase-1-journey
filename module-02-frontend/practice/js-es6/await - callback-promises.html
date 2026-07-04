@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: grey;">
+  <button id="button">Load Users</button>
+    <script>
+
+
+// JavaScript Async Notes — Callbacks, Promises, Async/Await,
+// Event Loop, and Fetch API
+//
+// Each topic is wrapped in its own { } block so that repeated
+// names like getUser/getData/getCourses don't clash with each
+// other when this whole file runs top to bottom.
+
+
+// Callbacks: a function passed as an argument to another function
+{
+  function sum(a, b) {
+    console.log(a + b);
+  }
+
+  function calculator(a, b, sumCallback) {
+    sumCallback(a, b);
+  }
+
+  calculator(1, 2, sum);
+}
+
+
+// Callback hell: nested callbacks forming a downward pyramid
+{
+  function getData(dataId, getNextData) {
+    setTimeout(() => {
+      console.log("data", dataId);
+      if (getNextData) {
+        getNextData();
+      }
+    }, 2000);
+  }
+
+  getData(1, () => {
+    console.log("getting data.....");
+    getData(2, () => {
+      console.log("getting data.....");
+      getData(3, () => {
+        console.log("getting data.....");
+        getData(4);
+      });
+    });
+  });
+}
+
+
+// Promises: basic creation and resolve/reject
+{
+  const promise = new Promise((resolve, reject) => {
+    console.log("i'm a promise");
+  });
+
+  function getPromise() {
+    return new Promise((resolve, reject) => {
+      console.log("i'm a promise");
+      resolve("success");
+      // reject("some error occurred");
+    });
+  }
+
+  const p = getPromise();
+  p.then((res) => {
+    console.log("fulfilled", res);
+  });
+  p.catch((err) => {
+    console.log("rejected", err);
+  });
+}
+
+
+// Promise chaining
+{
+  function getData(dataId, getNextData) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("data", dataId);
+        resolve("success");
+        if (getNextData) {
+          getNextData();
+        }
+      }, 5000);
+    });
+  }
+
+  // Option 1: nested .then()
+  getData(1).then((res) => {
+    console.log(res);
+    getData(2).then((res) => {
+      console.log(res);
+    });
+  });
+
+  // Option 2: proper chaining (return the next promise)
+  getData(1)
+    .then((res) => {
+      return getData(2);
+    })
+    .then((res) => {
+      return getData(3);
+    })
+    .then((res) => {
+      console.log("success");
+    });
+}
+
+/// async/await basics
+{
+  function getData(dataId) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("data", dataId);
+        resolve("success");
+      }, 2000);
+    });
+  }
+
+  async function getAllData() {
+    console.log("getting data 1.......");
+    await getData(1);
+    console.log("getting data 2.......");
+    await getData(2);
+    console.log("getting data 3.......");
+    await getData(3);
+    console.log("getting data 4.......");
+    await getData(4);
+  }
+
+  getAllData();
+}
+
+
+// IIFE: Immediately Invoked Function Expression
+{
+  // A function that runs as soon as it's defined
+
+  function getData(dataId) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("data", dataId);
+        resolve("success");
+      }, 2000);
+    });
+  }
+
+  (async function () {
+    console.log("getting data 1.......");
+    await getData(1);
+    console.log("getting data 2.......");
+    await getData(2);
+    console.log("getting data 3.......");
+    await getData(3);
+    console.log("getting data 4.......");
+    await getData(4);
+  })();
+}
+
+
+// Callback example showing execution order + dependent nested async calls
+{
+  function getUser(callback) {
+    console.log("1. starting program...");
+    setTimeout(() => {
+      const user = { id: 1, name: "Moiz" };
+      console.log("3. user received");
+      callback(user);
+    }, 3000);
+  }
+
+  function getCourses(userId, callback) {
+    setTimeout(() => {
+      const courses = ["JavaScript", "Python", "React"];
+      callback(courses);
+    }, 2000);
+  }
+
+  console.log("0. program started");
+
+  getUser((user) => {
+    console.log("4. using user:", user.name);
+    getCourses(user.id, (courses) => {
+      console.log("courses:", courses);
+      console.log("first:", courses[0]);
+    });
+  });
+
+  console.log("2. program continues");
+}
+
+
+// Promise chaining with two dependent async operations
+{
+  console.log("fetching data.....");
+
+  function getUser() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const user = { id: 2, name: "Hafsa" };
+        resolve(user);
+      }, 5000);
+    });
+  }
+
+  function getCourses(userId) {
+    return new Promise((resolve, reject) => {
+      const courses = ["DevOps", "Cyber Security", "Full Stack"];
+      resolve(courses);
+    });
+  }
+
+  getUser()
+    .then((user) => {
+      console.log("User:", user);
+      // returning a promise here makes the next .then() wait for it
+      return getCourses(user.id);
+    })
+    .then((courses) => {
+      console.log("Courses:", courses);
+      console.log("First course:", courses[0]);
+    })
+    .catch((error) => {
+      console.log("something failed", error);
+    });
+}
+
+
+// Promise reject + .finally()
+{
+  function getUser(shouldSucceed) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (shouldSucceed) {
+          resolve({ id: 1, name: "Moiz" });
+        } else {
+          reject("Could not fetch user");
+        }
+      }, 2000);
+    });
+  }
+
+  getUser(false)
+    .then((user) => {
+      console.log(user);
+    })
+    .catch((error) => {
+      console.log("error", error);
+    })
+    .finally(() => {
+      console.log("request finished");
+    });
+}
+
+
+// An async function always returns a Promise, even for a plain value
+{
+  async function getMessage() {
+    return "hello";
+  }
+
+  const result = getMessage();
+  console.log(result); // Promise { 'hello' } (pending until resolved)
+
+  getMessage().then((message) => {
+    console.log(message);
+  });
+}
+
+
+// try/catch with async/await for handling success and failure
+{
+  function getUser(shouldSucceed) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (shouldSucceed) {
+          const user = { id: 2, name: "Hafsa" };
+          resolve(user);
+        } else {
+          reject(new Error("Could not fetch user"));
+        }
+      }, 5000);
+    });
+  }
+
+  // success example
+  async function showUser() {
+    try {
+      console.log("2. inside function");
+      const user = await getUser(true);
+      console.log("4. user:", user.name);
+    } catch (error) {
+      console.log("Error:", error.message);
+    }
+  }
+
+  console.log("1. before function");
+  showUser();
+  console.log("3. outside function");
+
+  // failure example
+  async function showUserFailure() {
+    try {
+      const user = await getUser(false);
+      console.log(user);
+    } catch (error) {
+      console.log("Error:", error.message);
+    }
+  }
+
+  showUserFailure();
+}
+
+
+// Same task solved 3 ways: callback, promise, async/await
+{
+  // 1. Callback style
+  function getUserCallback(callback) {
+    setTimeout(() => {
+      const user = { id: 1, name: "Moiz" };
+      callback(user);
+    }, 3000);
+  }
+
+  getUserCallback((user) => {
+    console.log(`UserName: ${user.name} and UserID: ${user.id}`);
+  });
+
+  // 2. Promise style
+  function getUserPromise() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const user = { id: 2, name: "Durrak" };
+        resolve(user);
+      }, 3000);
+    });
+  }
+
+  getUserPromise()
+    .then((user) => {
+      console.log(`UserName: ${user.name} and UserID: ${user.id}`);
+    })
+    .catch((error) => {
+      console.log("error:", error.message);
+    });
+
+  // 3. async/await style
+  console.log("Loading....");
+
+  function getUserAsync() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const user = { id: 3, name: "Musa" };
+        resolve(user);
+      }, 5000);
+    });
+  }
+
+  async function showUser() {
+    try {
+      const user = await getUserAsync();
+      console.log(`UserName: ${user.name} and UserID: ${user.id}`);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  showUser();
+}
+
+
+// Event loop: call stack, microtask queue (Promises), macrotask queue (setTimeout)
+{
+  console.log("start");
+
+  setTimeout(() => {
+    console.log("callback: timer done");
+  }, 2000);
+
+  console.log("end");
+}
+
+
+// Microtasks (Promise callbacks) run before macrotasks (setTimeout), even with a 0ms delay
+{
+  console.log("start");
+
+  const promise = new Promise((resolve, reject) => {
+    console.log("Promise executor runs immediately");
+    setTimeout(() => {
+      resolve("data received");
+    }, 5000);
+  });
+
+  promise.then((result) => {
+    console.log(result);
+  });
+
+  console.log("end");
+}
+
+
+// await pauses the async function, but doesn't block the rest of the program
+{
+  console.log("start");
+
+  async function fetchOut() {
+    console.log("inside async function");
+    const result = await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("fetched data");
+      }, 5000);
+    });
+    console.log(result);
+  }
+
+  fetchOut();
+  console.log("end");
+}
+
+
+// Event loop order quiz #1
+{
+  // Expected order: Start -> End -> P1 -> P2 -> T1 -> T2
+
+  console.log("Start");
+
+  setTimeout(() => {
+    console.log("T1");
+  }, 0);
+
+  Promise.resolve().then(() => {
+    console.log("P1");
+    setTimeout(() => {
+      console.log("T2");
+    }, 0);
+  });
+
+  Promise.resolve().then(() => {
+    console.log("P2");
+  });
+
+  console.log("End");
+}
+
+
+// Event loop order quiz #2 (an async function body runs synchronously until the first await)
+{
+  // Expected order: Start -> A -> End -> C -> B
+
+  async function test() {
+    console.log("A");
+    await Promise.resolve();
+    console.log("B");
+  }
+
+  console.log("Start");
+
+  test();
+
+  Promise.resolve().then(() => {
+    console.log("C");
+  });
+
+  console.log("End");
+}
+
+
+// Event loop order quiz #3
+{
+  // Expected order: 1 -> 5 -> 3 -> 4 -> 2
+
+  console.log("1");
+
+  setTimeout(() => {
+    console.log("2");
+  }, 0);
+
+  Promise.resolve().then(() => {
+    console.log("3");
+  });
+
+  Promise.resolve().then(() => {
+    console.log("4");
+  });
+
+  console.log("5");
+}
+
+/// fetch API: get a GitHub user's profile
+{
+  // (fixed: template literal needs backticks, not double quotes, for ${username} to work)
+
+  async function getUser(username) {
+    try {
+      const response = await fetch(`https://api.github.com/users/${username}`);
+      if (!response.ok) {
+        throw new Error(`User not found. Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data.name);
+      console.log(data.public_repos);
+      console.log(data.followers);
+      console.log(data.id);
+    } catch (error) {
+      console.log("something went wrong:", error.message);
+    }
+  }
+
+  getUser("shaikh-code");
+}
+
+
+// fetch API: search GitHub repositories
+{
+  async function searchRepos(query) {
+    const url = `https://api.github.com/search/repositories?q=${query}&sort=stars&per_page=3`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      const data = await response.json();
+      data.items.forEach((repo) => {
+        console.log(`${repo.full_name} - ${repo.stargazers_count}`);
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  searchRepos("javascript");
+}
+
+
+// fetch API: POST request (fixed typo: "poet" -> "post")
+{
+  async function createPost() {
+    try {
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: "My first post",
+          body: "this is the content",
+          userId: 1,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`Failed: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("Created:", data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  createPost();
+}
+
+// fetch API triggered by a button click event
+{
+  // NOTE: this needs a real DOM button element with id/selector "button" to run in a browser
+
+  const button = document.querySelector("#button");
+
+  button.addEventListener("click", getUsers);
+
+  async function getUsers() {
+    console.log("1");
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    console.log("2");
+    const data = await response.json();
+    console.log("3");
+    console.log(data);
+  }
+
+  console.log("4");
+}
+
+
+
+
+
+  </script>
+</body>
+</html>

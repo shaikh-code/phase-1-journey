@@ -1,0 +1,217 @@
+
+:root {
+    /* Comfortable Dark Theme Palette */
+    --bg-main: #0d1117;       /* Deep dark blue/gray background */
+    --bg-card: #161b22;       /* Slightly lighter gray for containers */
+    --bg-input: #21262d;      /* Input field background */
+    --text-main: #c9d1d9;     /* Soft off-white for body text */
+    --text-muted: #8b949e;    /* Dimmed gray for secondary text/labels */
+    --accent: #58a6ff;        /* Clean, professional blue accent */
+    --accent-hover: #1f6feb;  /* Darker blue for hover states */
+    --error-color: #f85149;   /* Soft red for error text */
+    --border-color: #30363d;  /* Clean, subtle borders */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Keeps footer at the bottom */
+}
+
+
+header {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+footer {
+    margin-top: auto; /* Pushes footer to the bottom of the viewport */
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+footer p {
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+}
+
+footer strong {
+    color: var(--accent);
+}
+
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    width: 100%;
+}
+
+#container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#inputForm label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+#userInput {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 1rem;
+}
+
+/* Subtle focus ring style */
+#userInput:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+
+#searchBtn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#searchBtn:hover {
+    background-color: var(--accent-hover);
+}
+
+
+#loadingDiv {
+    text-align: center;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+    font-style: italic;
+}
+
+#errorDiv {
+    background-color: rgba(248, 81, 73, 0.1);
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+#resultDiv {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Profiles Layout Details */
+#resultDiv img {
+    border-radius: 50%; /* Makes user avatar a clean circle */
+    border: 2px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
+#resultDiv h2 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+#resultDiv p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+#resultDiv h3 {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #ffffff;
+    text-align: left;
+}
+
+/* Repositories List Styling */
+#resultDiv ul {
+    list-style: none;
+    text-align: left;
+    margin-top: 0.5rem;
+    max-height: 200px; /* Keeps overly long lists constrained */
+    overflow-y: auto;  /* Allows scrolling inside the list if necessary */
+    padding-right: 0.5rem;
+}
+
+#resultDiv li {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--accent);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Gracefully truncates long repo names */
+}
+
+/* Custom Scrollbar for the Repos List */
+#resultDiv ul::-webkit-scrollbar {
+    width: 6px;
+}
+#resultDiv ul::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 3px;
+}

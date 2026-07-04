@@ -22,7 +22,7 @@ An ordered list of values stored in a single variable. Each value has a position
 ## slice vs splice
 
 | | `slice` | `splice` |
-|---|---|---|
+
 | Mutates original? | **No** | **Yes** |
 | Purpose | Copy, extract | Delete, insert, replace |
 | Returns | New array | Removed items |
@@ -44,7 +44,7 @@ arr.splice(1, 1, 99)  // replace index 1 with 99
 All three return new arrays. None mutate the original. These replace most loops in React.
 
 | Method | Purpose | Returns |
-|---|---|---|
+
 | `map` | Transform every element | Same length new array |
 | `filter` | Keep elements matching condition | Smaller new array |
 | `reduce` | Collapse into single value | Number, object, anything |
@@ -107,7 +107,7 @@ const obj = { [variable]: value }  // computed key, dynamic key name
 ## Object.keys / values / entries
 
 | Method | Returns |
-|---|---|
+
 | `Object.keys(obj)` | Array of key names |
 | `Object.values(obj)` | Array of values |
 | `Object.entries(obj)` | Array of `[key, value]` pairs |
@@ -234,7 +234,7 @@ catch (e) {
 ## Common Error Types
 
 | Error | When it happens |
-|---|---|
+
 | `TypeError` | Wrong type, accessing property on null |
 | `ReferenceError` | Variable does not exist |
 | `SyntaxError` | Invalid JS, bad JSON parse |
@@ -262,7 +262,7 @@ When the browser loads HTML it creates a tree of objects representing every elem
 ## Selecting Elements
 
 | Method | Returns | Use when |
-|---|---|---|
+
 | `getElementById("id")` | Single element or null | Have an ID, fastest |
 | `querySelector("css")` | First match or null | Any CSS selector |
 | `querySelectorAll("css")` | NodeList of all matches | Multiple elements |
@@ -279,7 +279,7 @@ Array.from(document.querySelectorAll("li")) // convert to array for array method
 ## Reading and Changing Content
 
 | Property | Use for |
-|---|---|
+
 | `element.textContent` | Plain text, safe and fast |
 | `element.innerHTML` | HTML content, never use with user input (XSS) |
 | `element.value` | Input field values |

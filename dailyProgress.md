@@ -223,3 +223,15 @@ Add, delete, category filter, running total, localStorage persistence. All 7 chu
 - `renderExpenses()` placed after `return` inside callback  fixed
 - `JSON.stringify()` result discarded instead of passed into `setItem()`  fixed
 - Stopped mid-function multiple times without completing logic  recurring, needs discipline
+
+# Days 23–32 | JavaScript Async Fundamentals & Fetch API
+
+## Progress Update
+
+After completing the Expense Tracker, I took a short break from learning due to university MID exams and a few days of illness. Once I returned, I focused on strengthening my understanding of asynchronous JavaScript before moving on to React.
+
+## GitHub User Search application
+
+Applied the concepts by building a GitHub User Search application using the GitHub REST API. Implemented user search, fetched and displayed profile data, handled loading and error states, and reinforced the complete Fetch API workflow through a practical project.
+
+...

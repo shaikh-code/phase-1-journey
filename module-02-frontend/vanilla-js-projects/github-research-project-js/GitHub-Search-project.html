@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="github-search.css">
+</head>
+<body>
+   <header>
+        <h1>GitHub Profile Finder</h1>
+    </header>
+
+    <main>
+        <div id="container">
+            <form action="" id="inputForm">
+                <label for="userInput">Enter username</label>
+                <input type="text" id="userInput" placeholder="e.g., octocat">
+                <button id="searchBtn">Search</button>
+            </form>
+        </div>
+        
+        <div id="errorDiv" style="display: none;"></div>
+        <div style="display: none;" id="loadingDiv">...Loading</div>
+        <div style="display: none;" id="resultDiv"></div>
+    </main>
+
+    <footer>
+        <div>Developed by <strong>Abdul Moiz</strong></div>
+    </footer>
+    <script>
+
+    const userInput = document.getElementById("userInput")
+    const inputForm = document.getElementById("inputForm")
+    const errorDiv = document.getElementById("errorDiv")
+    const loadingDiv = document.getElementById("loadingDiv")
+    const resultDiv = document.getElementById("resultDiv")
+   
+
+   
+
+    inputForm.addEventListener("submit",async(e)=>{
+        e.preventDefault()
+        const inputValue= userInput.value.trim()
+
+        if(!inputValue){
+            return
+        }
+        console.log(inputValue)
+        loadingDiv.style.display = "block"; // Show loading
+        errorDiv.textContent = ""
+        errorDiv.style.display = "none";    // Hide any previous error
+        resultDiv.style.display = "none";   // Hide previous results
+
+        try{
+            const [userPfp,userRep] =await Promise.all([
+                fetch(`https://api.github.com/users/${inputValue}`),
+                fetch(`https://api.github.com/users/${inputValue}/repos`)
+            ])
+            if(!userPfp.ok || !userRep.ok)
+            throw new Error(
+                  !userPfp.ok
+                      ?`User not found: ${userPfp.status}`
+                      :`Repository not found: ${userRep.status}`
+                
+                
+                )
+           
+            const [users,repos] = await Promise.all([
+                userPfp.json(),
+                userRep.json()
+            ])
+            // HTML that gets displayed on the page.
+
+            // const img = document.createElement("img");
+            // img.src = users.avatar_url;
+            // img.width = 100;
+
+            // const name = document.createElement("h2");
+            // name.textContent = users.name;
+
+            // const bio = document.createElement("p");
+            // bio.textContent = users.bio;
+            // resultDiv.append(img, name, bio);
+
+            // HTML that gets displayed on the page. alternate method
+            resultDiv.innerHTML = `
+            <img src="${users.avatar_url}" width="100" alt="${users.name}">
+
+            <h2>${users.name}</h2>
+
+            <p>${users.bio}</p>
+
+            <p><strong>Followers:</strong> ${users.followers}</p>
+
+            <h3>Repositories</h3>
+
+            <ul>
+                ${repos
+                    .map(repo => `<li>${repo.name}</li>`)
+                    .join("")}
+            </ul>
+        `;
+           
+        console.log("Users:", users.name);
+        console.log("Repos:", repos.length);
+
+            console.log(users)
+            console.log(repos)
+            loadingDiv.style.display = "none";
+            resultDiv.style.display = "block";
+
+        }catch(err){
+            loadingDiv.style.display = "none";
+            errorDiv.style.display = "block";
+            errorDiv.textContent = `error Occured :${err.message}`
+
+            
+
+        }
+
+        
+    })
+    </script>
+</body>
+</html>

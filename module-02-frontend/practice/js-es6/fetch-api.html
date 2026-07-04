@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch API Demos</title>
+</head>
+<body>
+
+  <!-- GET demo -->
+  <h2>Load Users (GET)</h2>
+  <button id="loadBtn">Load users</button>
+  <p id="loading"></p>
+  <ul class="users"></ul>
+
+  <!-- POST demo -->
+  <h2>Create User (POST)</h2>
+  <div id="container">
+    <form id="form">
+      <label for="name">Your Name</label><br>
+      <input type="text" id="name" placeholder="Enter your name">
+      <br>
+      <label for="email">Your Email</label><br>
+      <input type="email" id="email" placeholder="Enter your email">
+      <br>
+      <button type="submit" id="btn">Create user</button>
+      <p id="statusMsg"></p>
+    </form>
+  </div>
+
+  <script>
+    //  GET API 
+    const loadBtn = document.getElementById("loadBtn");
+    const usersContainer = document.querySelector(".users");
+
+    loadBtn.addEventListener("click", () => {
+      console.log("...loading");
+      loadUsers();
+    });
+
+    async function loadUsers() {
+      const loading = document.getElementById("loading");
+      loading.innerText = "...Loading Users";
+      usersContainer.innerHTML = "";
+
+      const url = "https://jsonplaceholder.typicode.com/users";
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+
+        data.forEach((user) => {
+          const li = document.createElement("li");
+          li.innerHTML = user.name;
+          usersContainer.append(li);
+        });
+
+        loading.innerText = "";
+      } catch (err) {
+        console.error(err.message);
+        loading.innerText = `Error: ${err.message}`;
+      }
+    }
+
+    //  POST API 
+    const inputName = document.getElementById("name");
+    const inputEmail = document.getElementById("email");
+    const form = document.getElementById("form");
+    const statusMsg = document.getElementById("statusMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      try {
+        statusMsg.textContent = "Creating user...";
+
+        const userObj = {
+          name: inputName.value,
+          email: inputEmail.value,
+        };
+
+        const url = "https://jsonplaceholder.typicode.com/users";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userObj),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        statusMsg.textContent = "User created successfully!";
+
+        inputName.value = "";
+        inputEmail.value = "";
+      } catch (err) {
+        console.error(err);
+        statusMsg.textContent = `Error: ${err.message}`;
+      }
+    });
+
+    // Promise.all: fire both requests at once, wait for both 
+    async function getUserAndRepos(username) {
+      try {
+        const [userRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${username}`),
+          fetch(`https://api.github.com/users/${username}/repos`),
+        ]);
+
+        if (!userRes.ok || !reposRes.ok) {
+          throw new Error("One of the requests failed");
+        }
+
+        const [user, repos] = await Promise.all([userRes.json(), reposRes.json()]);
+        console.log(`${user.name} has ${repos.length} repos`);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    getUserAndRepos("shaikh-code");
+
+    async function getUserAndPosts() {
+      try {
+        const [usersRes, postsRes] = await Promise.all([
+          fetch("https://jsonplaceholder.typicode.com/users"),
+          fetch("https://jsonplaceholder.typicode.com/posts"),
+        ]);
+
+        if (!usersRes.ok || !postsRes.ok) {
+          throw new Error("One or more requests failed.");
+        }
+
+        const [users, posts] = await Promise.all([usersRes.json(), postsRes.json()]);
+
+        console.log("Users:", users.length);
+        console.log("Posts:", posts.length);
+
+        console.log(users);
+        console.log(posts);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    getUserAndPosts();
+  </script>
+</body>
+</html>
