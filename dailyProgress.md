@@ -235,3 +235,21 @@ After completing the Expense Tracker, I took a short break from learning due to 
 Applied the concepts by building a GitHub User Search application using the GitHub REST API. Implemented user search, fetched and displayed profile data, handled loading and error states, and reinforced the complete Fetch API workflow through a practical project.
 
 ...
+
+# Days 33–45 | React Fundamentals: JSX, Components & Props
+
+## Progress Update
+
+Moved from core async JavaScript into React, starting with the fundamentals: JSX syntax, function components, and props. Focused on understanding how JSX compiles down to JS, how components are structured and reused, and how data flows from parent to child through props.
+
+## Key Concepts Covered
+
+- JSX syntax rules — single root element, `className`, camelCase attributes, embedding expressions with `{ }`
+- Conditional rendering using ternary and `&&` instead of `if` statements inside JSX
+- Function components — capital naming convention, returning JSX
+- Props — passing data as attributes, destructuring in parameters, default values, read-only nature
+- `children` prop — rendering nested content passed between component tags
+
+## Next Up
+
+State management with `useState`, handling events in React, and building a small interactive component to apply these concepts practically.
