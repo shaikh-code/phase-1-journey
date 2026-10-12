@@ -253,3 +253,25 @@ Moved from core async JavaScript into React, starting with the fundamentals: JSX
 ## Next Up
 
 State management with `useState`, handling events in React, and building a small interactive component to apply these concepts practically.
+
+# Days 46–105 | React Fundamentals: Concepts & Hooks
+
+## Progress Update
+
+Completed the core React concepts, moving beyond JSX, components, and props into state management, event handling, and React Hooks. Practiced these concepts through separate examples to understand how React components work, manage data, and respond to user interactions.
+
+## Key Concepts Covered
+
+\- JSX, Components & Props — JSX syntax, reusable components, props, destructuring, default values, and `children`
+\- State & Events — `useState`, event handling, state updates, and interactive components
+\- Conditional Rendering — ternary operators, `&&`, and rendering UI based on conditions
+\- Lists & Keys — rendering arrays using `map()` and assigning unique keys
+\- React Hooks — `useState`, `useEffect`, `useRef`, and `useContext`
+\- Custom Hooks — creating reusable logic with custom hooks
+\- Component Communication — lifting state up and sharing data between components
+\- Effects & Refs — handling side effects, timers, and accessing DOM elements using refs
+\- Context API — sharing data across components without passing props through every level
+
+## Next Up
+
+Starting my first React + TypeScript project to apply these concepts in a more structured, practical application while learning to work with TypeScript in React.
