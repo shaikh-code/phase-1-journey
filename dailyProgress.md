@@ -275,3 +275,47 @@ Completed the core React concepts, moving beyond JSX, components, and props into
 ## Next Up
 
 Starting my first React + TypeScript project to apply these concepts in a more structured, practical application while learning to work with TypeScript in React.
+
+
+# Days 105-114
+
+# AI Workspace Project
+
+A project management application built with React and TypeScript for practical learning.
+
+## Tech Stack
+- React
+- TypeScript
+- Vite
+- React Router
+- CSS
+
+## Features Completed
+- Create, search, edit, and delete projects
+- View individual project details
+- Add and delete tasks
+- Mark tasks as completed or active
+- Display tasks belonging to each project
+
+## Concepts Learned
+- React state with `useState`
+- TypeScript types and props
+- Component communication
+- Event handling and controlled inputs
+- Conditional rendering
+- Array methods: `map()` and `filter()`
+- React Router and dynamic routes
+
+## Current Status
+Core project and task features are working. Task styling and status labels are being refined.
+
+Data is stored in React state and resets when the page is refreshed.
+
+## Next Steps
+1. Finalize task styling and status labels.
+2. Implement task editing.
+3. Build the Dashboard, Settings, and simulated Login pages.
+4. Test and improve the frontend.
+
+## Future Plan
+Complete the frontend, then move to Python, FastAPI, PostgreSQL, and backend development. AI integration will come later.

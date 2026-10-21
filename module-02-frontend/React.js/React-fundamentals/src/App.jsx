@@ -73,6 +73,7 @@ const App = () => {
     <CustomHooks />
   </div>
 </section>
+<Routing></Routing>
         </div>
     );
 };
