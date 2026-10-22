@@ -317,5 +317,4 @@ Data is stored in React state and resets when the page is refreshed.
 3. Build the Dashboard, Settings, and simulated Login pages.
 4. Test and improve the frontend.
 
-## Future Plan
-Complete the frontend, then move to Python, FastAPI, PostgreSQL, and backend development. AI integration will come later.
+
