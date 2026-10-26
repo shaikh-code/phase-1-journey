@@ -23,6 +23,7 @@ function App() {
   const [editName, setEditName] = useState("")
   const [editError, setEditError] = useState("")
 
+
   const [tasks, setTasks] = useState<Task[]>([
     { id: 1, projectId: 1, title: "set up React components", completed: false },
     { id: 2, projectId: 1, title: "Build project dashboard", completed: false },
@@ -72,7 +73,14 @@ function App() {
     setEditName(project.name)
     setEditError("")
   }
-
+   function handleStatusChange(id:number,status:Project["status"]){
+    setProjects((prev)=> prev.map((project)=>
+    project.id === id
+     ?
+     {...project,status}
+     :project
+    ))
+   }
   function handleSave(id: number) {
     const trimmed = editName.trim()
     if (!trimmed) {
@@ -153,6 +161,7 @@ function App() {
                   onSave={handleSave}
                   onCancel={handleCancel}
                   editError={editError}
+                  onStatusChange={handleStatusChange}
                 />
               ))}
             </div>
@@ -167,6 +176,7 @@ function App() {
               onAddTask={handleAddTask}
               onToggleTask={handleToggleTask}
               onDeleteTask={handleDeleteTask}
+              
             />
           }
         />
@@ -185,6 +195,7 @@ function ProjectCard({
   onSave,
   onCancel,
   editError,
+  onStatusChange
 }: {
   project: Project
   onDelete: (id: number) => void
@@ -195,6 +206,7 @@ function ProjectCard({
   onSave: (id: number) => void
   onCancel: () => void
   editError: string
+  onStatusChange:(id:number,status:Project["status"])=>void
 }) {
   const isEditing = editingProjectId === project.id
 
@@ -219,6 +231,24 @@ function ProjectCard({
 
       <p>{project.description}</p>
       <p>{project.status}</p>
+      <select
+  value={project.status}
+  onChange={(e) => {
+    const status = e.target.value
+
+    if (
+      status === "active" ||
+      status === "completed" ||
+      status === "paused"
+    ) {
+      onStatusChange(project.id, status)
+    }
+  }}
+>
+  <option value="active">Active</option>
+  <option value="completed">Completed</option>
+  <option value="paused">Paused</option>
+</select>
       <button onClick={() => onDelete(project.id)}>Delete</button>
       <button onClick={() => onEdit(project.id)}>Edit</button>
     </div>
