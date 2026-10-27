@@ -1,20 +1,9 @@
 import { Routes, Route, Link } from "react-router-dom"
 import ProjectDetails from "./ProjectDetails"
 import { useState } from "react"
+import type { Project, Task,DashboardProps } from "./types"
 
-type Project = {
-  id: number
-  name: string
-  description: string
-  status: "active" | "completed" | "paused"
-}
 
-type Task = {
-  id: number
-  projectId: number
-  title: string
-  completed: boolean
-}
 
 function App() {
   const [newProjectName, setNewProjectName] = useState("")
@@ -35,6 +24,16 @@ function App() {
     { id: 2, name: "AI Workspace2", description: "A workspace for AI projects2", status: "active" },
     { id: 3, name: "AI Workspace3", description: "A workspace for AI projects3", status: "active" },
   ])
+
+  // const totalProjects =  projects.length
+  // const totalTasks = tasks.length
+  // const completedTasks = tasks.filter((task)=>task.completed).length
+  // const incompletedTasks = tasks.filter((task)=> !task.completed).length
+  // const completionPercentage =totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100
+  // const activeProjects = projects.filter((project)=>project.status === "active").length
+  // const completedProjects= projects.filter((project)=>project.status === "completed").length
+  // const pausedProjects  = projects.filter((project)=>project.status === "paused").length
+
 
   //  Task handlers 
   function handleAddTask(projectId: number, title: string) {
@@ -123,6 +122,7 @@ function App() {
           path="/"
           element={
             <div>
+              <Link to="/dashboard">Dashboard</Link>
               <h1>My projects</h1>
 
               <input
@@ -180,6 +180,10 @@ function App() {
             />
           }
         />
+        <Route path="/dashboard"
+         element={<Dashboard projects={projects} tasks={tasks}></Dashboard>}
+         />
+        
       </Routes>
     </div>
   )
@@ -255,4 +259,85 @@ function ProjectCard({
   )
 }
 
+function Dashboard({ projects, tasks }: DashboardProps) {
+  const totalProjects = projects.length;
+  const totalTasks = tasks.length;
+
+  const completedTasks = tasks.filter(
+    (task) => task.completed
+  ).length;
+
+  const incompleteTasks = tasks.filter(
+    (task) => !task.completed
+  ).length;
+
+  const completionPercentage =
+    totalTasks === 0
+      ? 0
+      : (completedTasks / totalTasks) * 100;
+
+  const activeProjects = projects.filter(
+    (project) => project.status === "active"
+  ).length;
+
+  const completedProjects = projects.filter(
+    (project) => project.status === "completed"
+  ).length;
+
+  const pausedProjects = projects.filter(
+    (project) => project.status === "paused"
+  ).length;
+
+  return (
+    <div className="dashboard">
+      <h1>Dashboard</h1>
+      <p>Overview of your projects and tasks</p>
+
+      <section className="stats-grid">
+        <div className="stat-card">
+          <h3>Total Projects</h3>
+          <p>{totalProjects}</p>
+        </div>
+
+        <div className="stat-card">
+          <h3>Total Tasks</h3>
+          <p>{totalTasks}</p>
+        </div>
+
+        <div className="stat-card">
+          <h3>Completed Tasks</h3>
+          <p>{completedTasks}</p>
+        </div>
+
+        <div className="stat-card">
+          <h3>Incomplete Tasks</h3>
+          <p>{incompleteTasks}</p>
+        </div>
+      </section>
+
+      <section className="task-progress">
+        <h2>Task Progress</h2>
+
+        <p>
+          {completedTasks} of {totalTasks} tasks completed
+        </p>
+
+        <progress
+          value={completionPercentage}
+          max={100}
+        />
+
+        <p>{Math.round(completionPercentage)}%</p>
+      </section>
+
+      <section className="project-status">
+        <h2>Project Status</h2>
+
+        <p>Active: {activeProjects}</p>
+        <p>Completed: {completedProjects}</p>
+        <p>Paused: {pausedProjects}</p>
+      </section>
+    </div>
+  );
+}
 export default App

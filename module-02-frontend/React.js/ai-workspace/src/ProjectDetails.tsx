@@ -1,19 +1,8 @@
 import { useParams, Link } from "react-router-dom"
 import { useState } from "react"
 
-type Project = {
-  id: number
-  name: string
-  description: string
-  status: "active" | "completed" | "paused"
-}
+import type { Project, Task } from "./types"
 
-type Task = {
-  id: number
-  projectId: number
-  title: string
-  completed: boolean
-}
 
 function ProjectDetails({
   projects,

@@ -277,44 +277,59 @@ Completed the core React concepts, moving beyond JSX, components, and props into
 Starting my first React + TypeScript project to apply these concepts in a more structured, practical application while learning to work with TypeScript in React.
 
 
-# Days 105-114
 
-# AI Workspace Project
+## Days 105–114
 
-A project management application built with React and TypeScript for practical learning.
+# AI Workspace
 
-## Tech Stack
-- React
-- TypeScript
-- Vite
+A project management application built with React and TypeScript.
+
+**Tech Stack**
+- React, TypeScript, Vite
 - React Router
 - CSS
 
-## Features Completed
-- Create, search, edit, and delete projects
-- View individual project details
-- Add and delete tasks
-- Mark tasks as completed or active
-- Display tasks belonging to each project
+**Features Completed**
+- Project creation, search, editing, and deletion
+- Dynamic project details pages
+- Task creation, completion, and deletion
+- Project-specific task lists
+- Input validation
+- Shared `Project` and `Task` types
 
-## Concepts Learned
-- React state with `useState`
-- TypeScript types and props
-- Component communication
-- Event handling and controlled inputs
+**Concepts Learned**
+- `useState` and immutable state updates
+- Props and component communication
+- Controlled inputs and event handling
 - Conditional rendering
-- Array methods: `map()` and `filter()`
+- `map()` and `filter()`
 - React Router and dynamic routes
 
-## Current Status
-Core project and task features are working. Task styling and status labels are being refined.
-
-Data is stored in React state and resets when the page is refreshed.
-
-## Next Steps
-1. Finalize task styling and status labels.
-2. Implement task editing.
-3. Build the Dashboard, Settings, and simulated Login pages.
-4. Test and improve the frontend.
+## Status
+Core project and task functionality implemented. Data stored in React state without persistence.
 
 
+## Days 115–121 | October 21–27, 2026
+
+**Features Completed**
+- Dashboard with project and task statistics
+- Project status management: Active, Paused, Completed
+- Automatic deletion of associated tasks when deleting a project
+- Improved validation and state consistency
+- Centralized TypeScript types in `types.ts`
+
+**Concepts Practised**
+- Functional state updates
+- Derived state and dashboard statistics
+- Parent-child data flow
+- Array updates and filtering
+- TypeScript across components
+
+**Status**
+Core frontend functionality completed. Data remains in React state and resets on refresh. Login and Settings pages were excluded from scope.
+
+**Next Steps**
+- Audit React and TypeScript fundamentals
+- Review architecture and edge cases
+- Begin Python and backend development
+- Integrate the frontend with an API and database later
