@@ -3,6 +3,7 @@ import { useState } from "react"
 
 import TaskStrip from "./TaskStrip"
 import type { Project, Task } from "./types"
+import { type SubmitEvent } from "react"
 
 
 function ProjectDetails({
@@ -38,7 +39,8 @@ function ProjectDetails({
     )
   }
 
-  const handleSubmitTask = () => {
+  const handleSubmitTask = (e:SubmitEvent) => {
+    e.preventDefault()
     const trimmed = newTaskTitle.trim()
     if (!trimmed) {
       setTaskError("Task title can't be empty")
@@ -78,7 +80,7 @@ function ProjectDetails({
       )}
 
       <div className="toolbar">
-        <div className="add-row">
+        <form className="add-row" onSubmit={handleSubmitTask}>
           <input
             type="text"
             aria-label="New task title"
@@ -89,10 +91,10 @@ function ProjectDetails({
               setTaskError("")
             }}
           />
-          <button className="btn btn-primary" onClick={handleSubmitTask}>
+          <button className="btn btn-primary" type="submit">
             Add a task
           </button>
-        </div>
+        </form>
       </div>
       {taskError && <p className="error">{taskError}</p>}
 

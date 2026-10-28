@@ -1,11 +1,13 @@
 import { Routes, Route, Link, NavLink } from "react-router-dom"
 import ProjectDetails from "./ProjectDetails"
 import TaskStrip from "./TaskStrip"
-import { useState } from "react"
+import { useState ,type SubmitEvent } from "react"
 import type { Project, Task, DashboardProps } from "./types"
+
 
 function App() {
   const [newProjectName, setNewProjectName] = useState("")
+  const [projectError,setProjectError]= useState("")
   const [searchItem, setSearchItem] = useState("")
   const [editingProjectId, setEditingProjectId] = useState<number | null>(null)
   const [editName, setEditName] = useState("")
@@ -90,15 +92,20 @@ function App() {
     setEditError("")
   }
 
-  function handleAddProject() {
-    const trimmed = newProjectName.trim()
-    if (!trimmed) return
-    setProjects((prev) => [
-      ...prev,
-      { id: Date.now(), name: trimmed, description: "", status: "active" },
-    ])
-    setNewProjectName("")
+ function handleAddProject(e: SubmitEvent) {
+  e.preventDefault()
+  const trimmed = newProjectName.trim()
+  if (!trimmed) {
+    setProjectError("Project name can't be empty")
+    return
   }
+  setProjects((prev) => [
+    ...prev,
+    { id: Date.now(), name: trimmed, description: "", status: "active" },
+  ])
+  setNewProjectName("")
+  setProjectError("")
+}
 
   const filteredProjects = projects.filter((project) =>
     project.name.toLowerCase().includes(searchItem.toLowerCase())
@@ -132,18 +139,21 @@ function App() {
                 </div>
 
                 <div className="toolbar">
-                  <div className="add-row">
-                    <input
-                      type="text"
-                      aria-label="New project name"
-                      placeholder="Name a new project"
-                      value={newProjectName}
-                      onChange={(e) => setNewProjectName(e.target.value)}
-                    />
-                    <button className="btn btn-primary" onClick={handleAddProject}>
-                      Add project
-                    </button>
-                  </div>
+                  <form className="add-row" onSubmit={handleAddProject}>
+                  <input
+                    type="text"
+                    aria-label="New project name"
+                    placeholder="Name a new project"
+                    value={newProjectName}
+                    onChange={(e) => {
+                      setNewProjectName(e.target.value)
+                      setProjectError("")
+                    }}
+                  />
+                  <button type="submit" className="btn btn-primary">
+                    Add project
+                  </button>
+                </form>
                   <input
                     className="search"
                     type="search"
@@ -153,7 +163,7 @@ function App() {
                     onChange={(e) => setSearchItem(e.target.value)}
                   />
                 </div>
-
+                 {projectError && <p className="error">{projectError}</p>}
                 {projects.length === 0 && (
                   <p className="empty">Nothing here yet. Name your first project above.</p>
                 )}
